@@ -61,7 +61,6 @@ public class PlayerAbilityJump : MonoBehaviour
 
     public void Jump()
     {
-        print("Jump");
         if (IsGrounded())
         {
             ApplyJumpForce(_groundJumpHeight);
