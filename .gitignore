@@ -54,3 +54,5 @@ UnityAssetStore-*.json
 /Library/
 /build/
 /obj/
+
+/UserSettings/
