@@ -20,9 +20,9 @@ public class SpidersController : MonoBehaviour
     }
     private void PursuePlayer()
     {
-        Vector3 targetPosition = _zoneDetector.GetTargetPosition();
+        Vector3 targetPosition = GetTargetPosition();
         Vector3 directionTarget = GetDirectionToTarget(targetPosition);
-        MoveAndShoot(directionTarget, true);
+        MoveEnemy(directionTarget, true);
     }
     private Vector3 GetDirectionToTarget(Vector3 targetPosition)
     {
@@ -35,12 +35,17 @@ public class SpidersController : MonoBehaviour
     {
         Vector3 targetPosition = _patrolPoints.GetTargetPosition();
         Vector3 directionToTarget = GetDirectionToTarget(targetPosition);
-        MoveAndShoot(directionToTarget, false);
+        MoveEnemy(directionToTarget, false);
     }
-    private void MoveAndShoot(Vector3 direction, bool canShoot)
+    private void MoveEnemy(Vector3 direction, bool canShoot)
     {
 
         _movement.Move(direction);
         //_shooter.Shoot(canShoot);
+    }
+
+    public Vector3 GetTargetPosition()
+    {
+        return PlayerController.Instance.transform.position;
     }
 }

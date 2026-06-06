@@ -6,9 +6,13 @@ public class EnemyAbilityDamage : MonoBehaviour
     [SerializeField] private bool isPeriodDamage;
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerHealth>(out var player))
+        var player = collision.gameObject.GetComponentInParent<PlayerHealth>();
+        if (player != null)
         {
-            if (isPeriodDamage) { player.TakePeriodicalDamage(damage);  }
+            if (isPeriodDamage)
+            {
+                player.TakePeriodicalDamage(damage);
+            }
             else
             {
                 player.TakeDamage(damage);
