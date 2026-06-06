@@ -52,17 +52,17 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator PeriodicalTakeDamage(int damage)
     {
-        yield return new WaitForSeconds(intervaleTakeDamage);
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, _maxHealth);
         DisplayHealth();
+        yield return new WaitForSeconds(intervaleTakeDamage);
         periodicalDamage = null;
     }
 
     private IEnumerator PeriodicalTakeHealth(int health)
     {
-        yield return new WaitForSeconds(intervaleTakeHealth);
         currentHealth = Mathf.Clamp(currentHealth + health, 0, _maxHealth);
         DisplayHealth();
+        yield return new WaitForSeconds(intervaleTakeHealth);
         periodicalDamage = null;
     }
 }
