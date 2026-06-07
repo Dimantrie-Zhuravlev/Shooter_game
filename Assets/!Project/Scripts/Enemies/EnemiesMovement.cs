@@ -4,6 +4,7 @@ public class EnemiesMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rb;
     [SerializeField, Range(0, 10f)] private float _groundAcceleration = 4f;
+    [SerializeField] public float rotationSpeed = 60f;
 
     public void Move(Vector3 direction)
     {
@@ -17,5 +18,11 @@ public class EnemiesMovement : MonoBehaviour
         currentVelocity.y = verticalSpeed;
 
         _rb.linearVelocity = currentVelocity;
+    }
+
+    public void RotateToPlayer(Vector3 direction)
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }
