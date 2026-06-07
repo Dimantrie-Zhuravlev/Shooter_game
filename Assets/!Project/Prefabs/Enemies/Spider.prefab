@@ -191,7 +191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ddab266ec81c744868eb2dd27d7c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpiderZoneTrigger
-  _player: {fileID: 0}
 --- !u!114 &8149904774039470178
 MonoBehaviour:
   m_ObjectHideFlags: 0
