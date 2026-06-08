@@ -28,6 +28,13 @@ public class EnemyHealth : MonoBehaviour
             DisplayHealth();
         }
     }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0, _maxHealth);
+        DisplayHealth();
+    }
+
     private void Update()
     {
         healthContainer.position = new Vector3(transform.position.x, transform.position.y + containerHeight, transform.position.z);
