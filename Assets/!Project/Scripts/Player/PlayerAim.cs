@@ -11,13 +11,6 @@ public class PlayerAim : MonoBehaviour
     private float _lastCheckTime = 0f;
     private float _checkInterval = 0.2f;
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(_mainCamera.transform.position, _mainCamera.forward * raycastDistance);
-    }
-
-
     void Update()
     {
         if (Time.time - _lastCheckTime > _checkInterval)

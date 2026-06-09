@@ -28,7 +28,6 @@ public class BulletsPool : MonoBehaviour
         {
             obj.SetActive(true);
             obj.transform.SetPositionAndRotation(position, rotation);
-            //obj.GetComponent<BulletMovement>().ChangeBulletTransform(firePoint);
             obj.GetComponent<BulletLifetime>().EnableBulletLifecycle();
         }
     }
