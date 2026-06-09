@@ -63,6 +63,6 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + health, 0, _maxHealth);
         DisplayHealth();
         yield return new WaitForSeconds(intervaleTakeHealth);
-        periodicalDamage = null;
+        periodicalHealth = null;
     }
 }
