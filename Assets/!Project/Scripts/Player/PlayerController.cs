@@ -1,7 +1,13 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private PlayerAbilityShoot _abilityShoot;
+    [SerializeField] private PlayerMovement _abilityMove;
+    [SerializeField] private PlayerAbilityRun _abilityRun;
+    [SerializeField] private PlayerAbilityJump _abilityJump;
+    [SerializeField] private PlayerRotation _lookCamera;
     public static PlayerController Instance { get; set; }
 
     private void Start()
@@ -9,5 +15,49 @@ public class PlayerController : MonoBehaviour
         Instance = this;
     }
 
+    public void PlayerShoot(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _abilityShoot.AbilityActivatePerformed(context);
+        }
+    }
 
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _abilityMove.AbilityActivatePerformed(context);
+        }
+        else if (context.canceled)
+        {
+            _abilityMove.AbilityActivateCanceled(context);
+        }
+
+    }
+
+    public void OnShiftRun(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _abilityRun.AbilityActivatePerformed(context);
+        }
+        else if (context.canceled)
+        {
+            _abilityRun.AbilityActivateCanceled(context);
+        }
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _abilityJump.AbilityActivatePerformed(context);
+        }
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        _lookCamera.AbilityActivatePerformed(context);
+    }
 }
