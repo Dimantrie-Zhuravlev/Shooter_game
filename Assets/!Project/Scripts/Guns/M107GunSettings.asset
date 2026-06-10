@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: M107GunSettings
   m_EditorClassIdentifier: Assembly-CSharp::GunSettings
   damage: 10
-  maxBulletsInClip: 12
-  maxBulletsClip: 4
+  maxBulletsInClip: 20
+  maxBulletsClip: 3

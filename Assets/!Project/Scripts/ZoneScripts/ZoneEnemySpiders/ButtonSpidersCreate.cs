@@ -20,16 +20,12 @@ public class ButtonSpidersCreate : MonoBehaviour
 
         if (!isAnyActive)
         {
-            print("Создаем пауков");
             for (int i = 0; i < _spidersList.Count; i++)
             {
                 GameObject currentObj = _spidersList[i];
                 currentObj.transform.position = _spidersCreatePoints[i].position;
                 currentObj.SetActive(true);
             }
-        } else
-        {
-            print("Не создаем пауков");
         }
     }
 }
