@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using Zenject;
 
 public class GunsController : MonoBehaviour
 {
-    [SerializeField] private GunSettings _gunM107Settings;
+    //[SerializeField] private GunSettings _gunM107Settings;
+    [Inject] private IGunCharacter _gunM107Settings;
     [SerializeField] private TMP_Text _ammoesText;
     [SerializeField] private TMP_Text _clipsText;
     [SerializeField] private TMP_Text _reloadText;
@@ -21,6 +23,12 @@ public class GunsController : MonoBehaviour
     private Coroutine coroutineReload;
     private bool abilityEnable = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    //public GunsController([Inject] IGunCharacter _gunSettings)
+    //{
+    //    _gunM107Settings = _gunSettings;
+    //    print(_gunM107Settings);
+    //}
     void Start()
     {
         _currentDamage = _gunM107Settings.damage;
@@ -30,6 +38,7 @@ public class GunsController : MonoBehaviour
         _maxClips = _gunM107Settings.maxBulletsInClip;
         DisplayAmmoesAndClips();
     }
+
 
     public void AddClip()
     {
