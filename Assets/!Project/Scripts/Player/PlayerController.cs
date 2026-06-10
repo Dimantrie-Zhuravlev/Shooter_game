@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerAbilityRun _abilityRun;
     [SerializeField] private PlayerAbilityJump _abilityJump;
     [SerializeField] private PlayerRotation _lookCamera;
+    [SerializeField] private GunsController _gunsController;
     public static PlayerController Instance { get; set; }
 
     private void Start()
@@ -59,5 +60,13 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         _lookCamera.AbilityActivatePerformed(context);
+    }
+
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _gunsController.AbilityActivatePerformed(context);
+        }
     }
 }

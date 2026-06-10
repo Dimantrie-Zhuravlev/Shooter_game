@@ -2,8 +2,9 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 using Zenject;
+using UnityEngine.InputSystem;
 
-public class GunsController : MonoBehaviour
+public class GunsController : AbstractInputAbility
 {
     //[SerializeField] private GunSettings _gunM107Settings;
     [Inject] private IGunCharacter _gunM107Settings;
@@ -85,4 +86,14 @@ public class GunsController : MonoBehaviour
         _ammoesText.text = $"Ammoes: {_currentAmmoes:D2}";
         _clipsText.text = $"Clips: {_currentClips:D2}"; ;
     }
+
+    public override void AbilityActivatePerformed(InputAction.CallbackContext context)
+    {
+        if (_currentAmmoes != _maxAmmoes)
+        {
+            Reload();
+        }
+    }
+
+    public override void AbilityActivateCanceled(InputAction.CallbackContext context) { }
 }
