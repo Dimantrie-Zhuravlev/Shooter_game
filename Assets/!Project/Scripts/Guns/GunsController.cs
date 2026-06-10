@@ -4,6 +4,7 @@ using System.Collections;
 
 public class GunsController : MonoBehaviour
 {
+    [SerializeField] private GunSettings _gunM107Settings;
     [SerializeField] private TMP_Text _ammoesText;
     [SerializeField] private TMP_Text _clipsText;
     [SerializeField] private TMP_Text _reloadText;
@@ -22,11 +23,11 @@ public class GunsController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _currentDamage = GunM107Character.damage;
-        _currentClips = GunM107Character.maxBulletsClip;
-        _currentAmmoes = GunM107Character.maxBulletsInClip;
-        _maxAmmoes = GunM107Character.maxBulletsInClip;
-        _maxClips = GunM107Character.maxBulletsInClip;
+        _currentDamage = _gunM107Settings.damage;
+        _currentClips = _gunM107Settings.maxBulletsClip;
+        _currentAmmoes = _gunM107Settings.maxBulletsInClip;
+        _maxAmmoes = _gunM107Settings.maxBulletsInClip;
+        _maxClips = _gunM107Settings.maxBulletsInClip;
         DisplayAmmoesAndClips();
     }
 

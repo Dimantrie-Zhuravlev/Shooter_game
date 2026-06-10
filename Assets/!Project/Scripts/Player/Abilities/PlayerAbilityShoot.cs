@@ -15,9 +15,10 @@ public class PlayerAbilityShoot : AbstractInputAbility
     public override void AbilityActivatePerformed(InputAction.CallbackContext context)
     {
         RaycastHit hit;
+        bool abilityEnable = _gunsController.AbilityEnable;
         _gunsController.Shoot();
         bool hasHit = Physics.Raycast(_mainCamera.transform.position, _mainCamera.forward, out hit, raycastDistance, _enemyLayerMask, QueryTriggerInteraction.Ignore);
-        if (hasHit && _gunsController.AbilityEnable)
+        if (hasHit && abilityEnable)
         {
             if (hit.collider && hit.collider.gameObject.TryGetComponent<EnemyHealth>(out var enemy))
             {
