@@ -43,5 +43,9 @@ public class EnemyHealth : MonoBehaviour
     private void DisplayHealth()
     {
         _healthBar.fillAmount = currentHealth / _maxHealth;
+        if (currentHealth ==0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

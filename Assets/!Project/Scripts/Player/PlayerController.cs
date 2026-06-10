@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerAbilityJump _abilityJump;
     [SerializeField] private PlayerRotation _lookCamera;
     [SerializeField] private GunsController _gunsController;
+    [SerializeField] private ZoneSpidersCreateCollider _zoneSpiderButton;
     public static PlayerController Instance { get; set; }
 
     private void Start()
@@ -67,6 +68,14 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             _gunsController.AbilityActivatePerformed(context);
+        }
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _zoneSpiderButton.OnCLickInteract();
         }
     }
 }
