@@ -22,13 +22,7 @@ public class GunsController : MonoBehaviour
 
     private Coroutine coroutineReload;
     private bool abilityEnable = true;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    //public GunsController([Inject] IGunCharacter _gunSettings)
-    //{
-    //    _gunM107Settings = _gunSettings;
-    //    print(_gunM107Settings);
-    //}
     void Start()
     {
         _currentDamage = _gunM107Settings.damage;
