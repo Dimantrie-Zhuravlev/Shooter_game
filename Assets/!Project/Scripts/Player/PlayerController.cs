@@ -10,7 +10,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerRotation _lookCamera;
     [SerializeField] private GunsController _gunsController;
     [SerializeField] private ZoneSpidersCreateCollider _zoneSpiderButton;
+    [SerializeField] private ChangePlayerMaterial _changeMaterial;
+    [SerializeField] private bool _needChangeMaterial;
+
     public static PlayerController Instance { get; set; }
+
 
     private void Start()
     {
@@ -22,8 +26,13 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             _abilityShoot.AbilityActivatePerformed(context);
+            if (_needChangeMaterial)
+            {
+                _changeMaterial.ChangeMaterial();
+            }
         }
     }
+
 
     public void OnMove(InputAction.CallbackContext context)
     {
