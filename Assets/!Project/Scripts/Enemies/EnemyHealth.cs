@@ -28,6 +28,11 @@ public class EnemyHealth : MonoBehaviour
             DisplayHealth();
         }
     }
+    public void RestoreHealth()
+    {
+        currentHealth = _maxHealth;
+        DisplayHealth();
+    }
 
     public void TakeDamage(int damage)
     {

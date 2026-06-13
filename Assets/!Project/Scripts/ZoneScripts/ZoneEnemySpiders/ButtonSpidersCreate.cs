@@ -24,6 +24,7 @@ public class ButtonSpidersCreate : MonoBehaviour
             {
                 GameObject currentObj = _spidersList[i];
                 currentObj.transform.position = _spidersCreatePoints[i].position;
+                currentObj.GetComponent<EnemyHealth>().RestoreHealth();
                 currentObj.SetActive(true);
             }
         }
