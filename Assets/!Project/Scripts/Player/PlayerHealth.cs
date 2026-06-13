@@ -6,6 +6,8 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private TMP_Text _healthText;
+    [SerializeField] private PlayerLives _playerLives;
+
 
     private float intervaleTakeDamage = 0.5f;
     private float intervaleTakeHealth = 0.5f;
@@ -15,8 +17,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        currentHealth = _maxHealth;
-        DisplayHealth();
+        restoreAllHealth();
     }
 
     private void DisplayHealth()
@@ -24,8 +25,14 @@ public class PlayerHealth : MonoBehaviour
         _healthText.text = $"Health: {currentHealth:D3}";
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(int damage)
+    {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, _maxHealth);
+        if (currentHealth ==0)
+        {
+            _playerLives.LoseOneLive();
+            return;
+        }
         DisplayHealth();
     }
 
@@ -38,6 +45,13 @@ public class PlayerHealth : MonoBehaviour
     {
         if (periodicalDamage == null)
         {
+            currentHealth = Mathf.Clamp(currentHealth - damagePerInterval, 0, _maxHealth);
+            if (currentHealth == 0)
+            {
+                _playerLives.LoseOneLive();
+                return;
+            }
+            DisplayHealth();
             periodicalDamage = StartCoroutine(PeriodicalTakeDamage(damagePerInterval));
         }
     }
@@ -52,8 +66,6 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator PeriodicalTakeDamage(int damage)
     {
-        currentHealth = Mathf.Clamp(currentHealth - damage, 0, _maxHealth);
-        DisplayHealth();
         yield return new WaitForSeconds(intervaleTakeDamage);
         periodicalDamage = null;
     }
@@ -64,5 +76,11 @@ public class PlayerHealth : MonoBehaviour
         DisplayHealth();
         yield return new WaitForSeconds(intervaleTakeHealth);
         periodicalHealth = null;
+    }
+
+    public void restoreAllHealth()
+    {
+        currentHealth = _maxHealth;
+        DisplayHealth();
     }
 }
