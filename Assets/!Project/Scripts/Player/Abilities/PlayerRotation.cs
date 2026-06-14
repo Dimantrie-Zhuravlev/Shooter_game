@@ -32,8 +32,7 @@ public class PlayerRotation : AbstractInputAbility
 
         if (_hand != null)
         {
-            _hand.rotation = Quaternion.Euler(_orbitAngles.x, _orbitAngles.y, 0f) * Quaternion.Euler(0f, 180f, 0f); //последние 180 т.к. оружие изначально перевернуто
-            _handPoint.position = new Vector3(_hand.position.x, _hand.position.y - _orbitAngles.x / 150f, _hand.position.z);
+            _handPoint.rotation = Quaternion.Euler(_orbitAngles.x, _orbitAngles.y, 0f) * Quaternion.Euler(0f, 180f, 0f); //последние 180 т.к. оружие изначально перевернуто
         }
     }
 
