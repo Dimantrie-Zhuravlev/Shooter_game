@@ -1,24 +1,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.FilePathAttribute;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerRotation : AbstractInputAbility
 {
-    private Vector2 _orbitAngles;
     [SerializeField] private float _maxVerticalAngle = 75f;
     [SerializeField, Range(-15f, -80f)] private float _minVerticalAngle = -75f;
     [SerializeField, Range(1f, 360f)] private float _turnSpeed = 30f;
+
+    [Header("Позиции объектов")]
     [SerializeField] private Transform _orbitalCamera;
     [SerializeField] private Transform _body;
-
-    [SerializeField] private Transform _handGun;
-
     [SerializeField] private Transform _hand;
+    [SerializeField] private Transform _handPoint;
+
+    private Vector2 _orbitAngles;
     private void Awake()
     {
         _orbitAngles = new Vector2(90, 90);
-        _handGun.SetParent(_hand);
-
     }
     void Update()
     {
@@ -30,10 +30,10 @@ public class PlayerRotation : AbstractInputAbility
         _body.transform.rotation = Quaternion.Euler(0f, _orbitAngles.y, 0f);
         _orbitalCamera.rotation = Quaternion.Euler(_orbitAngles.x, _orbitAngles.y, 0f);
 
-        if (_hand != null && _handGun != null)
+        if (_hand != null)
         {
-            _handGun.rotation = Quaternion.Euler(_orbitAngles.x / 5, _orbitAngles.y, 0f) * Quaternion.Euler(0f, 180f, 0f);
-            _handGun.position = new Vector3(_handGun.position.x, _hand.position.y + 1.5f - _orbitAngles.x / 150f, _handGun.position.z);
+            _hand.rotation = Quaternion.Euler(_orbitAngles.x, _orbitAngles.y, 0f) * Quaternion.Euler(0f, 180f, 0f); //последние 180 т.к. оружие изначально перевернуто
+            _handPoint.position = new Vector3(_hand.position.x, _hand.position.y - _orbitAngles.x / 150f, _hand.position.z);
         }
     }
 
@@ -51,5 +51,5 @@ public class PlayerRotation : AbstractInputAbility
         _orbitAngles.y = Mathf.Repeat(_orbitAngles.y, 360f); //362 градуса конвертируется в 2
     }
 
-    public override void AbilityActivateCanceled(InputAction.CallbackContext context) {}
+    public override void AbilityActivateCanceled(InputAction.CallbackContext context) { }
 }
