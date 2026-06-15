@@ -109,8 +109,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 100.64, y: 3.81, z: 32.73}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2870052615740312947}
   - {fileID: 7055446055745752570}
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemiesMovement
   _rb: {fileID: 7671885740611286344}
-  _groundAcceleration: 6
+  _groundAcceleration: 3
   rotationSpeed: 60
 --- !u!114 &3096885519867528662
 MonoBehaviour:
