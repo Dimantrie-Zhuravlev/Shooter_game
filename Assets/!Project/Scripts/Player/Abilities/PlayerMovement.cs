@@ -1,12 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerMovement : AbstractInputAbility
 {
-    [SerializeField] private Rigidbody _rb;
+    [Header("Параметры")]
     [SerializeField, Range(6, 12f)] private float _baseSpeed = 6f;
     [SerializeField, Range(12f, 18f)] private float _shiftSpeed = 12f;
+
+    [Header("Ссылки")]
     [SerializeField] private Transform _mainCamera;
+    [SerializeField] private CharacterController controller;
+    private Vector3 playerVelocity;
+    public Vector3 PlayerVelocity
+    {
+        get { return playerVelocity; }
+        set { playerVelocity = value; }
+    }
 
     private Vector2 _inputDirection;
     private float currentSpeed;
@@ -19,39 +29,46 @@ public class PlayerMovement : AbstractInputAbility
     }
     private void FixedUpdate()
     {
-        if (_inputDirection != Vector2.zero) //вектор отличен от нулевого
+        if (controller.isGrounded && playerVelocity.y < 0)
         {
-            HandleMovement();
+            playerVelocity.y = 0f;
+        }
+        // 2. Обрабатываем горизонтальное движение
+        HandleHorizontalMovement();
+        // 3. Применяем гравитацию
+        playerVelocity.y += Physics.gravity.y * Time.deltaTime;
+
+        controller.Move(playerVelocity * Time.deltaTime);
+
+    }
+
+    public void SetBaseSpeed() => currentSpeed = _baseSpeed;
+    public void SetShiftSpeed() => currentSpeed = _shiftSpeed;
+
+    private void HandleHorizontalMovement()
+    {
+        if (_inputDirection != Vector2.zero)
+        {
+            Vector3 cameraForward = _mainCamera.forward;
+            Vector3 cameraRight = _mainCamera.right;
+
+            cameraForward.y = 0;
+            cameraRight.y = 0;
+
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+
+
+            Vector3 desiredMoveDirection = cameraForward * _inputDirection.y + cameraRight * _inputDirection.x;
+            // Устанавливаем горизонтальную скорость. Вертикальная (y) остается прежней.
+            playerVelocity.x = desiredMoveDirection.x * currentSpeed;
+            playerVelocity.z = desiredMoveDirection.z * currentSpeed;
         }
         else
         {
-            _rb.linearVelocity = new Vector3(0f, _rb.linearVelocity.y, 0f);
+            playerVelocity.x = 0f;
+            playerVelocity.z = 0f;
         }
-    }
-
-    public void SetBaseSpeed()
-    {
-        currentSpeed = _baseSpeed;
-    }
-    public void SetShiftSpeed()
-    {
-        currentSpeed = _shiftSpeed;
-    }
-
-    private void HandleMovement()
-    {
-        Vector3 cameraForward = _mainCamera.forward;
-        Vector3 cameraRight = _mainCamera.right;
-
-        cameraForward.y = 0;
-        cameraRight.y = 0;
-
-        cameraForward.Normalize();
-        cameraRight.Normalize();
-
-        Vector3 movementDirection = cameraForward * _inputDirection.y + cameraRight * _inputDirection.x;
-        movementDirection.Normalize();
-        _rb.linearVelocity = new Vector3(movementDirection.x * currentSpeed, _rb.linearVelocity.y, movementDirection.z * currentSpeed);
     }
     public override void AbilityActivatePerformed(InputAction.CallbackContext context)
     {

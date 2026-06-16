@@ -3,27 +3,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerAbilityJump : AbstractInputAbility
 {
-    [SerializeField] private Rigidbody _rb;
+    [Header("Параметры")]
     [SerializeField, Range(0, 10f)] private float _groundJumpHeight = 3f;
     [SerializeField, Range(0, 10f)] private float _airJumpHeight = 2f;
-    [SerializeField] private LayerMask _groundLayerMask;
-    [SerializeField] private float raycastDistance = 0.51f;
-    [SerializeField] private Transform _playerBody;
+    [Header("Ссылки")]
+    [SerializeField] private CharacterController controller;
+    [SerializeField] private PlayerMovement _playerMove;
+
+    
 
     private bool _isJumping = false;
+    private bool isGrounded;
 
-    public bool IsGrounded()
-    {
-        Vector3 rayOrigin = new Vector3(
-            _playerBody.transform.position.x,
-            _playerBody.transform.position.y,
-            _playerBody.transform.position.z
-        );
-        RaycastHit hit;
-        bool hasHit = Physics.Raycast(rayOrigin, Vector3.down, out hit, raycastDistance); //Используется если луч должен найти не плоскость
-        //RaycastHit2D hit1 = Physics2D.Raycast(rayOrigin, Vector2.down, raycastDistance, -1); //Используется если луч должен найти плоскость
-        return hit.collider != null;
-    }
     private void FixedUpdate()
     {
         if (_isJumping)
@@ -41,7 +32,8 @@ public class PlayerAbilityJump : AbstractInputAbility
 
     public void Jump()
     {
-        if (IsGrounded())
+        isGrounded = controller.isGrounded;
+        if (isGrounded)
         {
             ApplyJumpForce(_groundJumpHeight);
             _hasDoubleJumped = true;
@@ -55,10 +47,7 @@ public class PlayerAbilityJump : AbstractInputAbility
 
     private void ApplyJumpForce(float jumpHeight)
     {
-        var velocity = _rb.linearVelocity;
-        velocity.y = velocity.y < 0f ? 0f : velocity.y;
-        velocity.y += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
-        _rb.linearVelocity = velocity;
+        _playerMove.PlayerVelocity = new Vector3(_playerMove.PlayerVelocity.x, _playerMove.PlayerVelocity.y + Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), _playerMove.PlayerVelocity.z) ;
     }
     public override void AbilityActivatePerformed(InputAction.CallbackContext context)
     {

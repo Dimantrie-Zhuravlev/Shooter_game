@@ -3,9 +3,9 @@ using UnityEngine;
 public class WaterKillCollision : MonoBehaviour
 {
     [SerializeField] private PlayerLives _killPlayer;
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        var player = collision.gameObject.GetComponentInParent<PlayerHealth>();
+        var player = other.gameObject.GetComponentInParent<PlayerHealth>();
         if (player != null)
         {
             _killPlayer.LoseOneLive();

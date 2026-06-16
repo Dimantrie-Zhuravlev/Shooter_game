@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class PlayerLives : MonoBehaviour
 {
@@ -39,8 +40,10 @@ public class PlayerLives : MonoBehaviour
             return;
         }
         currentLives = Mathf.Clamp(currentLives - 1, 0, _maxLives);
-        _playerHealth.restoreAllHealth();
-        gameObject.transform.SetPositionAndRotation(_pointToRestore.position, _pointToRestore.rotation);
+        _playerHealth.restoreAllHealth(); 
+        Vector3 teleportOffset = _pointToRestore.position - gameObject.transform.position;
+        gameObject.transform.rotation = _pointToRestore.rotation;
+        gameObject.GetComponent<CharacterController>().Move(teleportOffset);
         DisplayLives();
     }
 }
