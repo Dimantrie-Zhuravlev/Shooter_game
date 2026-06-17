@@ -4,9 +4,9 @@ public class EnemyAbilityDamage : MonoBehaviour
 {
     [SerializeField] private int damage;
     [SerializeField] private bool isPeriodDamage;
-    private void OnCollisionStay(Collision collision)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        var player = collision.gameObject.GetComponentInParent<PlayerHealth>();
+        var player = hit.gameObject.GetComponentInParent<PlayerHealth>();
         if (player != null)
         {
             if (isPeriodDamage)

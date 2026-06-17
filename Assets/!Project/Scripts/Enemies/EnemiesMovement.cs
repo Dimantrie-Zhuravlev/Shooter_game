@@ -2,27 +2,40 @@ using UnityEngine;
 
 public class EnemiesMovement : MonoBehaviour
 {
-    [SerializeField] private Rigidbody _rb;
+    [Header("Параметры")]
     [SerializeField, Range(0, 10f)] private float _groundAcceleration = 4f;
     [SerializeField] public float rotationSpeed = 60f;
+    [Header("Ссылки")]
+    [SerializeField] private CharacterController controller;
+
+    private Vector3 enemyVelocity;
 
     public void Move(Vector3 direction)
     {
-        Vector3 maximalVelocity = direction * _groundAcceleration;
-        Vector3 currentVelocity = _rb.linearVelocity;
-        float verticalSpeed = currentVelocity.y;
-        currentVelocity.y = 0;
+        if (controller.isGrounded && enemyVelocity.y < 0)
+        {
+            enemyVelocity.y = 0f;
+        }
+        // 2. Обрабатываем горизонтальное движение
+        HandleHorizontalMovement();
+        // 3. Применяем гравитацию
+        enemyVelocity.y += Physics.gravity.y * Time.deltaTime;
 
-        float deltaAcceleration = _groundAcceleration * Time.fixedDeltaTime;
-        currentVelocity = Vector3.MoveTowards(currentVelocity, maximalVelocity, deltaAcceleration);
-        currentVelocity.y = verticalSpeed;
+        controller.Move(enemyVelocity * Time.deltaTime);
+    }
+    private void HandleHorizontalMovement()
+    {
+        Vector3 desiredMoveDirection = gameObject.transform.forward + gameObject.transform.right;
+        // Устанавливаем горизонтальную скорость. Вертикальная (y) остается прежней.
+        //enemyVelocity.x = desiredMoveDirection.x * _groundAcceleration;
 
-        _rb.linearVelocity = currentVelocity;
+        enemyVelocity.x = transform.forward.x * _groundAcceleration;
+        enemyVelocity.z = transform.forward.z * _groundAcceleration;
     }
 
     public void RotateToPlayer(Vector3 direction)
     {
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed);
     }
 }

@@ -19,15 +19,6 @@ public class EnemyHealth : MonoBehaviour
         DisplayHealth();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        var player = collision.gameObject.GetComponentInParent<PlayerHealth>();
-        if (player != null)
-        {
-            currentHealth = Mathf.Clamp(currentHealth - 25f, 0, _maxHealth);
-            DisplayHealth();
-        }
-    }
     public void RestoreHealth()
     {
         currentHealth = _maxHealth;
