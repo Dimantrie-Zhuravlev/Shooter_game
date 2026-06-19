@@ -3,15 +3,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GunsController _gunsController;
+    [SerializeField] private ZoneSpidersCreateCollider _zoneSpiderButton;
+    [SerializeField] private ChangePlayerMaterial _changeMaterial;
+    [SerializeField] private bool _needChangeMaterial;
+    [Header("Abilities")]
     [SerializeField] private PlayerAbilityShoot _abilityShoot;
     [SerializeField] private PlayerMovement _abilityMove;
     [SerializeField] private PlayerAbilityRun _abilityRun;
     [SerializeField] private PlayerAbilityJump _abilityJump;
     [SerializeField] private PlayerRotation _lookCamera;
-    [SerializeField] private GunsController _gunsController;
-    [SerializeField] private ZoneSpidersCreateCollider _zoneSpiderButton;
-    [SerializeField] private ChangePlayerMaterial _changeMaterial;
-    [SerializeField] private bool _needChangeMaterial;
+    [SerializeField] private PlayerAbilityCrouch _abilityCrouch;
 
     public static PlayerController Instance { get; set; }
 
@@ -44,7 +46,6 @@ public class PlayerController : MonoBehaviour
         {
             _abilityMove.AbilityActivateCanceled(context);
         }
-
     }
 
     public void OnShiftRun(InputAction.CallbackContext context)
@@ -87,4 +88,14 @@ public class PlayerController : MonoBehaviour
             _zoneSpiderButton.OnCLickInteract();
         }
     }
+
+    public void OnSitdown(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _abilityCrouch.AbilityActivatePerformed(context);
+        }
+    }
+
+
 }

@@ -4804,7 +4804,6 @@ GameObject:
   - component: {fileID: 284876109}
   - component: {fileID: 284876110}
   - component: {fileID: 284876112}
-  - component: {fileID: 284876114}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4892,16 +4891,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83460ad04cedb2a4ead54f8287247f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  _gunsController: {fileID: 1957557765}
-  _zoneSpiderButton: {fileID: 1415119326}
-  _changeMaterial: {fileID: 1609188876}
-  _needChangeMaterial: 1
   _abilityShoot: {fileID: 284876110}
   _abilityMove: {fileID: 284876100}
   _abilityRun: {fileID: 284876111}
   _abilityJump: {fileID: 284876105}
   _lookCamera: {fileID: 284876103}
-  _abilitySitdown: {fileID: 284876114}
+  _gunsController: {fileID: 1957557765}
+  _zoneSpiderButton: {fileID: 1415119326}
+  _changeMaterial: {fileID: 1609188876}
+  _needChangeMaterial: 1
 --- !u!114 &284876108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5009,18 +5007,6 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 5, z: 0}
---- !u!114 &284876114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 284876097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d93ab1d572c1a54bad82454d8b6a184, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilitySitdown
 --- !u!4 &284982380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2876525648797328349, guid: 1daf434c68d4695469365c70ce92a678, type: 3}
@@ -10156,22 +10142,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 17fa6af4-b6c7-4ac6-a8bb-36118209eade
     m_ActionName: 'Player/Reload[/Keyboard/r]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 284876107}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnSitdown
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c5dd3afb-e2cc-4600-9744-091ed346c40e
-    m_ActionName: 'Player/Sitdown[/Keyboard/leftCtrl]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: 
@@ -22955,7 +22925,7 @@ GameObject:
   - component: {fileID: 1535091333}
   - component: {fileID: 1535091332}
   m_Layer: 5
-  m_Name: CanvasMain
+  m_Name: NewMainCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

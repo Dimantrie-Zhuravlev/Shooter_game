@@ -10,6 +10,7 @@ public class PlayerMovement : AbstractInputAbility
     [Header("Ссылки")]
     [SerializeField] private Transform _mainCamera;
     [SerializeField] private CharacterController controller;
+    [SerializeField] private PlayerAbilityCrouch _abilityCrouch;
     private Vector3 playerVelocity;
     public Vector3 PlayerVelocity
     {
@@ -36,9 +37,7 @@ public class PlayerMovement : AbstractInputAbility
         HandleHorizontalMovement();
         // 3. Применяем гравитацию
         playerVelocity.y += Physics.gravity.y * Time.deltaTime;
-
         controller.Move(playerVelocity * Time.deltaTime);
-
     }
 
     public void SetBaseSpeed() => currentSpeed = _baseSpeed;
@@ -46,7 +45,7 @@ public class PlayerMovement : AbstractInputAbility
 
     private void HandleHorizontalMovement()
     {
-        if (_inputDirection != Vector2.zero)
+        if (_inputDirection != Vector2.zero && _abilityCrouch.CrouchCoroutine == null)
         {
             Vector3 cameraForward = _mainCamera.forward;
             Vector3 cameraRight = _mainCamera.right;
