@@ -4845,6 +4845,7 @@ MonoBehaviour:
   _shiftSpeed: 12
   _mainCamera: {fileID: 1124668284}
   controller: {fileID: 284876113}
+  _abilityCrouch: {fileID: 284876114}
 --- !u!114 &284876103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4901,7 +4902,7 @@ MonoBehaviour:
   _abilityRun: {fileID: 284876111}
   _abilityJump: {fileID: 284876105}
   _lookCamera: {fileID: 284876103}
-  _abilitySitdown: {fileID: 284876114}
+  _abilityCrouch: {fileID: 0}
 --- !u!114 &284876108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5021,6 +5022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d93ab1d572c1a54bad82454d8b6a184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilitySitdown
+  _camera: {fileID: 1124668284}
+  _playerBody: {fileID: 474497833}
+  _playerModel: {fileID: 1609188870}
 --- !u!4 &284982380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2876525648797328349, guid: 1daf434c68d4695469365c70ce92a678, type: 3}
