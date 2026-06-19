@@ -4902,7 +4902,7 @@ MonoBehaviour:
   _abilityRun: {fileID: 284876111}
   _abilityJump: {fileID: 284876105}
   _lookCamera: {fileID: 284876103}
-  _abilityCrouch: {fileID: 0}
+  _abilityCrouch: {fileID: 284876114}
 --- !u!114 &284876108
 MonoBehaviour:
   m_ObjectHideFlags: 0
