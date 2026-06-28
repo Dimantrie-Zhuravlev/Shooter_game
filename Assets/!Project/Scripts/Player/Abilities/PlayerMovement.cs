@@ -5,7 +5,9 @@ public class PlayerMovement : AbstractInputAbility
 {
     [Header("Параметры")]
     [SerializeField, Range(6, 12f)] private float _baseSpeed = 6f;
-    [SerializeField, Range(12f, 18f)] private float _shiftSpeed = 12f;
+    [SerializeField, Range(8f, 18f)] private float _shiftSpeed = 12f;
+    [SerializeField, Range(1f, 2f)] private float _gravityScale = 1.5f;
+
 
     [Header("Ссылки")]
     [SerializeField] private Transform _mainCamera;
@@ -36,7 +38,7 @@ public class PlayerMovement : AbstractInputAbility
         // 2. Обрабатываем горизонтальное движение
         HandleHorizontalMovement();
         // 3. Применяем гравитацию
-        playerVelocity.y += Physics.gravity.y * Time.deltaTime;
+        playerVelocity.y += Physics.gravity.y * Time.deltaTime * _gravityScale;
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
