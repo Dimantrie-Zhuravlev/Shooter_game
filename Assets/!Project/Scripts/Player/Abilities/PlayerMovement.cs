@@ -14,6 +14,14 @@ public class PlayerMovement : AbstractInputAbility
     [SerializeField] private CharacterController controller;
     [SerializeField] private PlayerAbilityCrouch _abilityCrouch;
     private Vector3 playerVelocity;
+
+    private bool isPlayerOnVerticalStair = false;
+
+    public void ChangeIsPlayerVerticalStair(bool value)
+    {
+        isPlayerOnVerticalStair = value;
+    }
+
     public Vector3 PlayerVelocity
     {
         get { return playerVelocity; }
@@ -31,15 +39,25 @@ public class PlayerMovement : AbstractInputAbility
     }
     private void FixedUpdate()
     {
-        if (controller.isGrounded && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
+        if (!isPlayerOnVerticalStair)
+        {  //логика для обычного движения
+            if (controller.isGrounded && playerVelocity.y < 0) 
+            {
+                playerVelocity.y = 0f;
+            }
+            // 2. Обрабатываем горизонтальное движение
+            HandleHorizontalMovement();
+            // 3. Применяем гравитацию
+            playerVelocity.y += Physics.gravity.y * Time.deltaTime * _gravityScale;
+            controller.Move(playerVelocity * Time.deltaTime);
+        } else
+        {//логика для движения по вертикальной лестнице
+            // 2. Обрабатываем горизонтальное движение
+            HandleVerticalStairMovement();
+            // 3. Применяем гравитацию
+            controller.Move(playerVelocity * Time.deltaTime);
         }
-        // 2. Обрабатываем горизонтальное движение
-        HandleHorizontalMovement();
-        // 3. Применяем гравитацию
-        playerVelocity.y += Physics.gravity.y * Time.deltaTime * _gravityScale;
-        controller.Move(playerVelocity * Time.deltaTime);
+
     }
 
     public void SetBaseSpeed() => currentSpeed = _baseSpeed;
@@ -67,6 +85,28 @@ public class PlayerMovement : AbstractInputAbility
         else
         {
             playerVelocity.x = 0f;
+            playerVelocity.z = 0f;
+        }
+    }
+
+    private void HandleVerticalStairMovement()
+    {
+        if (_inputDirection != Vector2.zero && _abilityCrouch.CrouchCoroutine == null)
+        {
+            Vector3 cameraForward = _mainCamera.forward;
+            Vector3 cameraRight = _mainCamera.right;
+
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+
+            Vector3 desiredMoveDirection = cameraForward * _inputDirection.y + cameraRight * _inputDirection.x;
+            // Устанавливаем скорость. В отличие от обычного y тоже меняется
+            playerVelocity = desiredMoveDirection * currentSpeed;
+        }
+        else
+        {
+            playerVelocity.x = 0f;
+            playerVelocity.y = 0f;
             playerVelocity.z = 0f;
         }
     }
