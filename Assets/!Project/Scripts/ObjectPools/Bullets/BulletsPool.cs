@@ -16,6 +16,11 @@ public class BulletsPool : MonoBehaviour
             return;
         }
         Instance = this;
+        for (int i = 0; i < transform.childCount; i++) //Предазаполнение массива дочерними элементами, созданными на сцене заранее
+        {
+            _bullets.Add(transform.GetChild(i).gameObject);
+            _bullets[i].SetActive(false);
+        }
     }
     public void Get(Vector3 position, Quaternion rotation)
     {
